@@ -51,8 +51,10 @@ RUN \
   DOWNLOAD_URL="https://github.com/OrcaSlicer/OrcaSlicer/actions/runs/25110421395/artifacts/6708786687" && \
   cd /tmp && \
   curl -o \
-    /tmp/orca.app -L \
+    /tmp/orca.zip -L \
     "${DOWNLOAD_URL}" && \
+  unzip /tmp/orca.zip -d /tmp/orca.app && \
+  rm /tmp/orca.zip && \
   chmod +x /tmp/orca.app && \
   ./orca.app --appimage-extract && \
   mv squashfs-root /opt/orcaslicer && \
