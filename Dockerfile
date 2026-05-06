@@ -26,6 +26,7 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
     firefox \
+    unzip \
     gstreamer1.0-alsa \
     gstreamer1.0-gl \
     gstreamer1.0-gtk3 \
