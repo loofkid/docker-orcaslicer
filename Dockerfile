@@ -9,6 +9,8 @@ ARG ORCASLICER_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
+COPY OrcaSlicer_Linux_AppImage_Ubuntu2404_PR-13212.AppImage /tmp/orca.app
+
 # title
 ENV TITLE=OrcaSlicer \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
@@ -26,7 +28,6 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install --no-install-recommends -y \
     firefox \
-    unzip \
     gstreamer1.0-alsa \
     gstreamer1.0-gl \
     gstreamer1.0-gtk3 \
@@ -51,11 +52,6 @@ RUN \
   RELEASE_URL=$(curl -sX GET "https://api.github.com/repos/OrcaSlicer/OrcaSlicer/releases/latest"     | awk '/url/{print $4;exit}' FS='[""]') && \
   DOWNLOAD_URL="https://github.com/OrcaSlicer/OrcaSlicer/actions/runs/25110421395/artifacts/6708786687" && \
   cd /tmp && \
-  curl -o \
-    /tmp/orca.zip -L \
-    "${DOWNLOAD_URL}" && \
-  unzip /tmp/orca.zip -d /tmp/orca.app && \
-  rm /tmp/orca.zip && \
   chmod +x /tmp/orca.app && \
   ./orca.app --appimage-extract && \
   mv squashfs-root /opt/orcaslicer && \
